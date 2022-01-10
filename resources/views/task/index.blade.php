@@ -4,7 +4,22 @@
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-8">
-			<div class="card">
+            @if(isset($message))
+            <div id="ajax-alert" class="alert" >
+                @if($message==200)
+                    <p class="alert">İşiniz Oluşturuldu</p>
+                    @elseif($message==400)
+                    <p class="alert">İşiniz Oluşturulmadı</p>
+                @else
+                    <p class="alert">Hay Aksi Bir Terslik Meydana Geldi</p>
+                @endif
+
+            </div>
+            @endif
+                @if (Session::has('message'))
+                    <div class="alert alert-info">{{ Session::get('message') }}</div>
+                @endif
+            <div class="card">
 				<div class="card-header">Görevler
 					<a data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus"></i></a>
 				</div>
@@ -19,10 +34,10 @@
 						<form action="{{ route('task.destroy', $value->id) }}" method="POST">
 							@csrf
 							@method('DELETE')
-							
-							<button style="border: none;" type="submit" class="btn-link"><i class="fa fa-trash"></i></button>
+
+							<button onclick="return window.confirm('Silmek istediğinize eminmisiniz?');" style="border: none;" type="submit" class="btn-link"><i class="fa fa-trash"></i></button>
 						</form>
-						
+
 					</div>
 					<div class="modal fade" id="exampleModal{{$value->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered" role="document">
@@ -88,3 +103,4 @@
 
 
 @endsection
+

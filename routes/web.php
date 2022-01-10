@@ -22,3 +22,4 @@ Auth::routes();
  Route::resource('task', 'TaskController');
 Route::post('task/destroy/{id}', 'TaskController@destroy');
 Route::get('/home', 'HomeController@index')->name('home');
+
